@@ -11,7 +11,7 @@ Pese a que el precio depende, en cierta medida, de las tendencias que esté teni
 ​
 ## Descripción del problema
 ​
-El proyecto precisa en pronosticar debido a diferentes característas del inmueble si se considera barato o caro. Algunas de la features a tener en cuenta es la cantidad de habitaciones, localización, descripción, superficie. Para solucionar este problema se analizan 2 .csv, uno que contine el precio de los inmbuebles, con lo cual se va a sacar la media general y a partir de ella dividir las propiedades en caras o baratas. Y el otro, que es el que tenemos que predecir la clasificación pero sin la lista de precios.
+El proyecto se basa en pronosticar debido a diferentes característas del inmueble si se considera barato o caro. Algunas de la features a tener en cuenta es la cantidad de habitaciones, localización, descripción, superficie. Para solucionar este problema se analizan 2 .csv, uno que contine el precio de los inmbuebles, con lo cual se va a sacar la media general y a partir de ella dividir las propiedades en caras o baratas. Y el otro, que es el que tenemos que predecir la clasificación pero sin la lista de precios.
 ​
 ## Pasos seguidos
 ​
@@ -32,13 +32,9 @@ El proyecto precisa en pronosticar debido a diferentes característas del inmueb
 - Con las últimas horas en marcha, se decidió cambiar la forma de imputación de valores en el dataframe Test pero no hubo buenos resultados, mejoró unos puntos el recall a consecuencia de bajar drásticamente el accuracy.
 - Se llegó a la conclusión de que el problema es la base, es decir el EDA, por lo que todavía queda mucho por aprender y aplicar en este proyecto, como por ejemplo procesamiento de lenguaje natural. 
 ​
-## Métrica a utilizadas
+## Métrica utilizadas
 ​
 Como método de evaluación del desempeño del modelo, se utilizó la métrica de Exhaustividad (Recall) para las propiedades caras, a partir de la matriz de confusión (Confusion Matrix). 
-​
-$$ Recall=\frac{TP}{TP+FN}$$
-​
-Donde $TP$ son los verdaderos positivos y $FN$ los falsos negativos.
 
 Adicionalmente, se incluye la Accuracy como métrica de control.
 ​
