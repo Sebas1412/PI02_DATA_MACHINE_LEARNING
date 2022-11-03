@@ -2,11 +2,6 @@
 ​
 # Proyecto individual 2
 ​
-¡Bienvenidos al segundo proyecto! Durante estos días estarán poniendo en práctica sus habilidades en el campo de la predicción. Deberán usar cierta métrica para medir la performance del modelo la cual, a su vez, será usada para elegir los mejores modelos.
-​
-## Información relevante
-​
-Este proyecto es una instancia de evaluación, por lo cual es INDIVIDUAL y OBLIGATORIO para los alumnos de Data Science de Henry. Se disponibilizará un Google Form y pueden cargarse los resultados las veces que quieran. Es obligatorio que todos disponibilicen el código utilizado, para validar los modelos construidos.
 ​
 ## Mercado inmobiliario
 ​
@@ -16,25 +11,30 @@ Pese a que el precio depende, en cierta medida, de las tendencias que esté teni
 ​
 ## Descripción del problema
 ​
-Usted ha sido contactado de una importante empresa inversora dentro del rubro de la inmobiliaria en Colombia, con el fin de que implemente un modelo de clasificación que permita clasificar el precio de las propiedades en venta, utilizando los datos que se han puesto a su disposición correspondientes al año 2020.
+El proyecto precisa en pronosticar debido a diferentes característas del inmueble si se considera barato o caro. Algunas de la features a tener en cuenta es la cantidad de habitaciones, localización, descripción, superficie. Para solucionar este problema se analizan 2 .csv, uno que contine el precio de los inmbuebles, con lo cual se va a sacar la media general y a partir de ella dividir las propiedades en caras o baratas. Y el otro, que es el que tenemos que predecir la clasificación pero sin la lista de precios.
 ​
-Para esto, específicamente, debe predecir la **categorización** de las propiedades entre baratas o caras, considerando como criterio el valor promedio de los precios (la media). 
+## Pasos seguidos
 ​
-## Entrega
+- Se abrieron los archivos y se convirtieron en los datos del csv en DataFrame con la ayuda de la librería pandas
+- Se realizó la columna target
+- Se hizo un análisis exploratorio de los datos como es ver la cantidad de datos nulos en cada columna, su correlación con la columna objetivo, limpieza de datos, etc
+- Se borraron columnas que tenían muy pocos valores
+- Se imputaron valores faltantes a las columnas que le faltaban datos y no se borraron.
+- Se convirtieron a dummies las features categóricas.
+- Se dejaron las features que tienen correlación mayor a 0.1 y menor -0.1
+- Con este EDA realizado se procedió a probar sin éxito varios modelos con la librería Sklearn: vecinos más cercanos, árbol de decisión, regresión logística y random forest classifier
+- Se probó modificando el EDA y convertir todas las features categóricas que contenían una buena cantidad de datos y en variables dummies. Se aplicó pca para reducir la dimensionalidad y se probó con random forest, que dió una valores mediocres.
+- Volviendo otra vez sobre nuestros pasos, se decidió probar en vez de usar get_dummies de pandas, label enconder de sklearn para las features categóricas. No hubo buenos resultados. 
+- Llegado este momento se cambió el análisis del EDA. Se decidió trabajar con las columnas que tuvieran una correlación aceptable aunque estuvieran mayormente vacías. A estas se les aplicó una imputación de valores por su mediana subdivida según el tipo de propiedad que eran y si el target las marcaba como baratas o nulas.
+- Una vez llenas, se les aplicó get_dummies a las columnas categóricas.
+- Se procedió a hacer el modelo y resultó en que las métricas que evalúan el rendimiento daban muy bien. Esto puede significar dos cosas, en que se obtuvo un buen modelo o que se overfitteo el modelo y no se va a adaptar bien a los nuevos datos.
+- Para sacarse las dudas se uso el csv de testeo, al cual se les aplicó los cambios correspondientes, y se llegó a la conclusión de que efectivamente, el modelo está overfitteado. Se llegó como mejor puntaje a un recall de    0.55 y un accuracy de 0.72.
+- Con las últimas horas en marcha, se decidió cambiar la forma de imputación de valores en el dataframe Test pero no hubo buenos resultados, mejoró unos puntos el recall a consecuencia de bajar drásticamente el accuracy.
+- Se llegó a la conclusión de que el problema es la base, es decir el EDA, por lo que todavía queda mucho por aprender y aplicar en este proyecto, como por ejemplo procesamiento de lenguaje natural. 
 ​
-Deben tener el código en un script .py o Jupyter Notebook .ipynb, el cual debe incluir un buen EDA, feature engineerging y, de ser posible, un pipeline de Machine Learning para el procesamiento de datos que consideren necesario. Es importante **explicar claramente cada paso realizado** mediante comentarios en el script o textos formato markdown dentro del Notebook, pensar que cualquier persona (en este caso serán los Henry Mentors evaluadores) debe entender de la mejor manera posible cada razonamiento y pasos aplicados.
+## Métrica a utilizadas
 ​
-Recuerden, además, que deben enviar el repositorio que contenga el proyecto, por lo que es importante que le dediquen tiempo también a esta parte, dejando todo ordenado y con un README acorde, que sirva de introducción al contenido dentro de éste.
-​
-Por otro lado, es obligatorio que el script genere un archivo .csv sólo con las predicciones, teniendo únicamente **una sola columna** (sin index) que debe llamarse 'pred' y tenga todos los valores de las predicciones, con un valor por fila. De no llamarse así la **única columna**, nuestro script de validación **NO LO VA A TOMAR** y no aparecerán en el dashboard.
-​
-El nombre del archivo debe ser su usuario de GitHub, si su usuario de GitHub es 'pjr95', el archivo .csv con las predicciones debe llamarse 'pjr95.csv'. Vamos a validar tanto los datos que suban como el código, por lo que seguir estos pasos es fundamental.
-​
-Cuando entreguen les pedimos que verifiquen que su usuario de GitHub aparezca en el dashboard. En caso de que no aparezca, tal como se comentó más arriba, es debido a que el archivo entregado con las predicciones no cumple con los requisitos solicitados. 
-​
-## Métrica a utilizar
-​
-Como método de evaluación del desempeño del modelo, se utilizará la métrica de Exhaustividad (Recall) para las propiedades caras, a partir de la matriz de confusión (Confusion Matrix). 
+Como método de evaluación del desempeño del modelo, se utilizó la métrica de Exhaustividad (Recall) para las propiedades caras, a partir de la matriz de confusión (Confusion Matrix). 
 ​
 $$ Recall=\frac{TP}{TP+FN}$$
 ​
@@ -42,9 +42,9 @@ Donde $TP$ son los verdaderos positivos y $FN$ los falsos negativos.
 
 Adicionalmente, se incluye la Accuracy como métrica de control.
 ​
-## Archivos provistos
+## Archivos utilizados
 ​
-Se proveen los archivos dentro del archivo comprimido 'properties_colombia.zip':
+Se utilizaron los archivos dentro del archivo comprimido 'properties_colombia.zip':
  - 'properties_colombia_train.csv': Contiene 197549 registros y 26 dimensiones, el cual incluye la información **numérica** del precio.
  - 'propiedades_colombia_test.csv': Contiene 65850 registros y 25 dimensiones, el cual no incluye la información del precio. 
 ​
@@ -76,12 +76,6 @@ Se proveen los archivos dentro del archivo comprimido 'properties_colombia.zip':
 - operation_type - Tipo de operación (Venta).
 - geometry - Puntos geométricos formados por las coordenadas latitud y longitud. 
 ​
-## Sugerencias
-​
-- Exploren el dataset. Saquen medidas resumen, vean distribuciones de los datos, analicen bien el tipo de problema, etc.
-- Piensen que tipo de modelo podría ser aplicable según la descripción del problema y el tipo de variable de salida.
-- Busquen información sobre la métrica aplicada, cada métrica tiene pros y contras.
-- Siempre que vean en un dataset coordenadas geoespaciales, es buena estrategia revisar que las mismas correspondan en el mapa al lugar que deberían.
-- Si se presentan comentarios, es una buena oportunidad de aplicar procesamiento del lenguaje natural (NLP) para mejorar nuestro modelo.
-- En cuanto a la utilización de git, recuerden que si quieren hacer un cambio experimental pero no quieren romper el modelo, pueden utilizar [branching](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging).
-- Aprovechen esta instancia de aprendizaje, experimenten y, sobre todo, ¡diviértanse!
+## Aclaración
+
+La carpeta resultados, es la carpeta en la cual aparecen las distintas predicciones que se han obtuvieron con los diferentes modelos con el dataset de test. Los nombres están ordenados según como de manera ascendente, es decir el primer archivo cargado es "Sebas1412.csv" y el último "Sebas1412(6).csv", tal como aparece en el dashboard.
