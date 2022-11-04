@@ -74,6 +74,6 @@ Se utilizaron los archivos dentro del archivo comprimido 'properties_colombia.zi
 ​
 ## Aclaración
 
--La carpeta resultados, es la carpeta en la cual aparecen las distintas predicciones que se han obtuvieron con los diferentes modelos con el dataset de test. Los nombres están ordenados de manera ascendente, es decir el primer archivo cargado es "Sebas1412.csv" y el último "Sebas1412(6).csv", tal como aparece en el dashboard.
--Si bien se siguieron presentando modelos en el dashboard, se decidió no documentarlos ya que el cambio es muy poco con respecto a los otros.
+- La carpeta resultados, es la carpeta en la cual aparecen las distintas predicciones que se han obtuvieron con los diferentes modelos con el dataset de test. Los nombres están ordenados de manera ascendente, es decir el primer archivo cargado es "Sebas1412.csv" y el último "Sebas1412(6).csv", tal como aparece en el dashboard.
+- Si bien se siguieron presentando modelos en el dashboard, se decidió no documentarlos ya que el cambio es muy poco con respecto a los otros.
 
